@@ -170,7 +170,7 @@ IQR(msleep$awake)
 mean(msleep$awake)
 median(msleep$awake)
 
-# variance and standard deviation
+# Variance and Standard Deviation
 var(msleep$awake)
 sd(msleep$awake)
 
@@ -179,3 +179,67 @@ summary(msleep$awake)
 msleep %>% 
   select(awake, sleep_total) %>% 
   summary()
+
+# Summarize
+msleep %>% 
+  drop_na(vore) %>% 
+  group_by(vore) %>% 
+  summarise(Minimum = min(sleep_total),
+            Average = mean(sleep_total),
+            Maximum = max(sleep_total),
+            Range = max(sleep_total) - min(sleep_total)) %>% 
+  arrange(Average) %>% 
+  View()
+
+# Create tables
+table(msleep$vore)
+
+msleep %>%
+  select(vore, order) %>% 
+  filter(order %in% c("Rodentia", "Primates")) %>% 
+  table()
+
+# Visualization
+
+plot(pressure)
+
+# Grammar of Graphics
+  # data
+  # mapping
+  # geometry
+
+# Bar Graph
+ggplot(data = starwars,
+       mapping = aes(x = gender)) + 
+  geom_bar()
+
+# Histogram
+starwars %>% 
+  drop_na(height) %>% 
+  ggplot(aes(x = height)) +
+  geom_histogram()
+
+# Box Plot
+starwars %>% 
+  drop_na(height) %>% 
+  ggplot(aes(x = height)) +
+  geom_boxplot(fill = "steelblue") +
+  theme_bw() + 
+  labs(title = "Box Plot of Height",
+       x = "Height of Characters")
+
+# Density Plot
+starwars %>% 
+  drop_na(height) %>% 
+  filter(sex %in% c("male", "female")) %>% 
+  ggplot(aes(height, color = sex, fill = sex)) +
+  geom_density(alpha = 0.2) +
+  theme_bw()
+
+# Scatter Plot
+starwars %>% 
+  filter(mass < 200) %>% 
+  ggplot(aes(x = height, y = mass, color = sex)) +
+  geom_point(size = 5, alpha = 0.7) +
+  theme_minimal() +
+  labs(title = "Height and Mass by Sex")
