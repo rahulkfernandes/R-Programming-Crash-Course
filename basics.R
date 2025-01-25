@@ -243,3 +243,13 @@ starwars %>%
   geom_point(size = 5, alpha = 0.7) +
   theme_minimal() +
   labs(title = "Height and Mass by Sex")
+
+# Scatter Plot
+starwars %>% 
+  filter(mass < 200) %>% 
+  ggplot(aes(x = height, y = mass, color = sex)) +
+  geom_point(size = 5, alpha = 0.7) +
+  geom_smooth() +
+  facet_wrap(~sex) +
+  theme_bw() +
+  labs(title = "Height and Mass by Sex")
