@@ -253,3 +253,14 @@ starwars %>%
   facet_wrap(~sex) +
   theme_bw() +
   labs(title = "Height and Mass by Sex")
+
+
+### Analyze
+# Hypothesis testing
+# T-test
+library(gapminder)
+
+gapminder %>% 
+  filter(continent %in% c("Africa", "Europe")) %>% 
+  t.test(lifeExp ~ continent, data = .,
+         alternative = "two.sided")
